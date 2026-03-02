@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>SHOP SHALE - Luxury Store</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#020b2a,#001733);color:white;scroll-behavior:smooth;}
+header{background:#000d2e;text-align:center;padding:40px;}
+nav{display:flex;justify-content:center;gap:30px;padding:18px;background:rgba(0,23,51,0.9);position:sticky;top:0;z-index:10;}
+nav a{text-decoration:none;color:#6ec1ff;font-weight:bold;}
+.banner{background:linear-gradient(45deg,#003f7f,#001733);text-align:center;padding:80px 20px;font-size:26px;}
+.container{max-width:1200px;margin:auto;padding:60px 20px;}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:35px;}
+.product-card{background:rgba(0,23,51,0.9);border-radius:25px;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,0.6);transition:.4s;backdrop-filter:blur(10px);}
+.product-card:hover{transform:translateY(-12px) scale(1.03);}
+.product-card img{width:100%;height:260px;object-fit:cover;}
+.product-info{text-align:center;padding:20px;}
+button{background:#0066cc;border:none;padding:12px 24px;border-radius:30px;color:white;font-weight:bold;cursor:pointer;transition:.3s;margin:5px;}
+button:hover{transform:scale(1.05);opacity:.9;}
+.cart{position:fixed;right:20px;top:100px;background:#001733;padding:20px;border-radius:25px;width:280px;box-shadow:0 8px 30px rgba(0,0,0,0.7);}
+.cart-badge{position:fixed;right:35px;top:25px;background:#ff4da6;padding:8px 12px;border-radius:20px;cursor:pointer;}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:25px;}
+.gallery img{width:100%;height:230px;object-fit:cover;border-radius:20px;transition:.4s;}
+.gallery img:hover{transform:scale(1.08);}
+.section-box{background:rgba(0,23,51,0.9);padding:35px;border-radius:25px;backdrop-filter:blur(10px);}
+input,textarea{width:100%;padding:14px;margin:8px 0;border-radius:12px;border:none;}
+footer{background:#000d2e;color:white;text-align:center;padding:40px;margin-top:60px;}
+</style>
+</head>
+<body>
+<header>
+<h1>SHOP SHALE</h1>
+<p>Luxury Fashion Experience</p>
+</header>
+
+<div class="container" id="accueil" style="text-align:center;padding:80px 20px">
+<h1 style="color:#6ec1ff;font-size:48px">Bienvenue chez SHOP SHALE 💎</h1>
+<p>Votre boutique luxe premium pour parfums, sacs et chaussures de qualité supérieure.</p>
+<button onclick="scrollToSection('produits')">Voir les produits</button>
+</div>
+
+<div class="banner">
+💎 SHOP SHALE PREMIUM LUXURY STORE 💎
+<br><br>
+<button onclick="scrollToSection('produits')">Découvrir</button>
+</div>
+
+<div class="cart-badge" onclick="toggleCart()">
+🛒 <span id="cartCount">0</span>
+</div>
+
+<nav>
+<a href="#produits">Produits</a>
+<a href="#gallery">Galerie</a>
+<a href="#recommend">Recommandations</a>
+<a href="#payment">Paiement</a>
+<a href="#delivery">Livraison</a>
+<a href="#contact">Contact</a>
+</nav>
+
+<div class="container" id="produits">
+<h2 style="text-align:center;color:#6ec1ff">🔥 Produits Premium</h2>
+<div class="products" id="productList"></div>
+</div>
+
+<div class="container" id="gallery">
+<h2 style="text-align:center;color:#6ec1ff">✨ Galerie Luxe</h2>
+<div class="gallery">
+<img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f">
+<img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3">
+<img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff">
+</div>
+</div>
+
+<div class="container" id="recommend">
+<h2 style="text-align:center;color:#6ec1ff">🤖 Recommandations</h2>
+<div class="section-box" style="text-align:center">
+<p>Produits populaires pour vous 🔥</p>
+<button onclick="addToCart('Parfum Premium',50000)">Ajouter Parfum Premium</button>
+<button onclick="addToCart('Sac Luxe',75000)">Ajouter Sac Luxe</button>
+</div>
+</div>
+
+<div class="container" id="payment">
+<h2 style="text-align:center;color:#6ec1ff">💳 Paiement sécurisé</h2>
+<div class="section-box" style="text-align:center">
+<h3>Choisissez votre méthode de paiement</h3>
+<button onclick="showPaymentForm('orange')">Orange Money</button>
+<button onclick="showPaymentForm('wave')">Wave</button>
+<button onclick="showPaymentForm('card')">Carte Bancaire</button>
+</div>
+</div>
+
+<div id="paymentForm" class="container" style="display:none">
+<div class="section-box" style="max-width:500px;margin:auto;text-align:center">
+<h3 id="paymentTitle"></h3>
+<div id="paymentInputs"></div>
+<button onclick="processPayment()">Valider le paiement</button>
+</div>
+</div>
+
+<div class="container" id="delivery">
+<h2 style="text-align:center;color:#6ec1ff">📦 Livraison</h2>
+<div class="section-box">
+<input placeholder="Adresse de livraison">
+<input placeholder="Ville">
+<button>Confirmer livraison</button>
+</div>
+</div>
+
+<div class="container" id="contact">
+<h2 style="text-align:center;color:#6ec1ff">📩 Contact</h2>
+<div class="section-box">
+<p>Email : in544074@gmail.com</p>
+<p>Téléphone : 705985001</p>
+<textarea placeholder="Votre message"></textarea>
+<button>Envoyer</button>
+</div>
+</div>
+
+<div id="panier" class="cart" style="display:none">
+<h3>🛒 Panier</h3>
+<ul id="cartList"></ul>
+<p id="total">Total: 0 FCFA</p>
+<button onclick="checkout()">Commander WhatsApp</button>
+</div>
+
+<footer>
+<p>© 2026 SHOP SHALE - Luxury Store</p>
+</footer>
+
+<script>
+let cart=[];
+let products=[
+{name:'Parfum Luxe',price:50000,img:'https://via.placeholder.com/400'},
+{name:'Sac Fashion',price:75000,img:'https://via.placeholder.com/400'},
+{name:'Chaussures Chic',price:90000,img:'https://via.placeholder.com/400'}
+];
+
+function renderProducts(){
+let container=document.getElementById('productList');
+container.innerHTML='';
+products.forEach(p=>{
+container.innerHTML+=`
+<div class='product-card'>
+<img src='${p.img}'>
+<div class='product-info'>
+<h3>${p.name}</h3>
+<p>${p.price} FCFA</p>
+<button onclick="addToCart('${p.name}',${p.price})">Ajouter</button>
+</div>
+</div>`;
+});
+updateCartCount();
+}
+
+function addToCart(name,price){cart.push({name,price});renderCart();updateCartCount();}
+
+function toggleCart(){let box=document.getElementById('panier');box.style.display=box.style.display==='none'?'block':'none';}
+
+function renderCart(){let list=document.getElementById('cartList');let totalEl=document.getElementById('total');let total=0;list.innerHTML='';cart.forEach(i=>{total+=i.price;list.innerHTML+=`<li>${i.name} - ${i.price} FCFA</li>`;});totalEl.innerText='Total: '+total+' FCFA';}
+
+function updateCartCount(){document.getElementById('cartCount').innerText=cart.length;}
+
+function checkout(){let msg='Commande SHOP SHALE:%0A';let total=0;cart.forEach(p=>{msg+=p.name+' '+p.price+' FCFA%0A';total+=p.price;});msg+='Total '+total+' FCFA';window.open('https://wa.me/221770000000?text='+msg);}
+
+let currentPaymentMethod='';
+
+function showPaymentForm(method){
+currentPaymentMethod=method;
+let title=document.getElementById('paymentTitle');
+let inputs=document.getElementById('paymentInputs');
+let form=document.getElementById('paymentForm');
+
+form.style.display='block';
+
+if(method==='orange'){
+title.innerText='🍊 Paiement Orange Money';
+inputs.innerHTML=`<input placeholder='Numéro Orange Money'>
+<input placeholder='Code PIN'>`;
+}
+
+if(method==='wave'){
+title.innerText='🌊 Paiement Wave';
+inputs.innerHTML=`<input placeholder='Numéro Wave'>
+<input placeholder='Code PIN'>`;
+}
+
+if(method==='card'){
+title.innerText='💳 Carte Bancaire';
+inputs.innerHTML=`<input placeholder='Numéro carte'>
+<input placeholder='Date expiration'>
+<input placeholder='CVV'>`;
+}
+}
+
+function processPayment(){
+alert('Paiement '+currentPaymentMethod+' validé (simulation sécurisée)');
+document.getElementById('paymentForm').style.display='none';
+}
+function scrollToSection(id){document.getElementById(id).scrollIntoView({behavior:'smooth'});}
+
+renderProducts();
+</script>
+</body>
+</html>
